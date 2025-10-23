@@ -15,9 +15,13 @@ const config = {
   nodeEnv: process.env.NODE_ENV || "development",
 
   // Logging
-  logLevel: process.env.LOG_LEVEL || "info"
+  logLevel: process.env.LOG_LEVEL || "info",
 
   // Add more configuration as needed
+
+  mongoUri: process.env.MONGODB_URI,
+  jwtSecret: process.env.JWT_SECRET,
+  jwtExpire: "30d"
 };
 
 export default config;

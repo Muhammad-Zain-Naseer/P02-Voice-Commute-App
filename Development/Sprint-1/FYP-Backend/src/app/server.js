@@ -7,11 +7,17 @@ import socketConfig from "../config/socket.config.js";
 import logger from "../utils/logger.js";
 import audioRoutes from "../routes/audio.routes.js";
 import rideRoutes from "../routes/ride.routes.js";
+import authRoutes from "../routes/authRoutes.js";
+import connectDB from "../config/db.js";
+import dotenv from "dotenv";
 import {
   errorHandler,
   notFoundHandler
 } from "../middleware/errorHandler.middleware.js";
 import { handleRideEvents } from "../sockets/ride.socket.js";
+
+dotenv.config();
+connectDB();
 
 const app = express();
 
@@ -51,6 +57,8 @@ io.on("connection", (socket) => {
     logger.info(`🔌 Socket disconnected: ${socket.id} | Reason: ${reason}`);
   });
 });
+
+app.use("/api/auth", authRoutes);
 
 // 404 handler - must be after all routes
 app.use(notFoundHandler);
